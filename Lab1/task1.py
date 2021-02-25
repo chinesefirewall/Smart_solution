@@ -3,7 +3,7 @@ import time
 GPIO.setmode(GPIO.BOARD)
 GPIO.setwarnings(False)
 
-LED1 = 16
+LED1 = 8
 
 GPIO.setup(LED1, GPIO.OUT)
 
