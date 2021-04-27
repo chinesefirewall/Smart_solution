@@ -29,8 +29,8 @@ def clientthread(conn):
 
 
 
-host = '127.0.0.8'  
-port = int(input("Enter port: "))
+host = '192.168.1.241'  # should be raspberry ip through $ hostname -I
+port = int(input("Enter port:  use 8888 for demo"))
 numconn = 10  
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -40,7 +40,7 @@ print('...socket created...')
 try:
     s.bind((host, port))
 except socket.error as msg:
-    print('...bind failed...error code: ' + str(msg.arg[0]) + ', error message: ' + msg.arg[1])
+    print('...bind failed...error code: ' + str(msg.args[0]) + ', error message: ' + msg.args[1])
     sys.exit()
 
 print('...socket bind complete...')
@@ -59,3 +59,10 @@ while True:
 
     start_new_thread(clientthread, (conn,)) # Starts new thread to handle all connections
 s.close()
+''' ################# output should be #########################
+>> %Run niyi_sockserver.py
+Enter port: 8888
+...socket created...
+...socket bind complete...
+...socket now listening...
+'''
