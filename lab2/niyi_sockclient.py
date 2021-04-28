@@ -2,7 +2,6 @@ import socket
 import sys 
 import time
 
-
 arguments = sys.argv
 
 host = input("Enter IP: ") # e.g www.ut.ee
@@ -45,10 +44,6 @@ else:
             sys.exit()
 
         print('...message sent successfully...')
-        
-        
-        
-
 
     # close the socket
     s.close()

@@ -4,7 +4,7 @@ import time
 from _thread import *  # low level threading library
 import RPi.GPIO as GPIO
 
-pin = [21, 20] # led pins
+pin = int(input('Enter LED pin number: ')) # led pins
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
@@ -21,7 +21,7 @@ def clientthread(conn):
     
     buffer_size = 4096
     # sending message to connected client
-    conn.send('...welcome to the server...type something and hit enter \n'.encode())  # send only takes bytes
+    conn.send('...welcome to the control server...type something and hit enter \n'.encode())  # send only takes bytes
     while True:
         try:
             # receiving from client
@@ -75,7 +75,7 @@ def clientthread(conn):
             print("received message: "+ data.decode())
                 
             print(msg_client)
-            reply = "Sending back " + msg_client
+            reply = "Sending back:  " + msg_client
             conn.sendall(reply.encode())
         except socket.error as message:  
             print(message)
@@ -108,7 +108,7 @@ lock_1 = False
 
 
 host = '127.0.0.1'  
-port = int(input("Enter port: "))
+port = int(input("Enter port No. : "))
 numconn = 10    
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

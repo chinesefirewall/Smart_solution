@@ -29,7 +29,7 @@ def clientthread(conn):
 
 
 
-host = '192.168.1.241'  # should be raspberry ip through $ hostname -I
+host = '172.17.55.244' #'192.168.1.241'  # should be raspberry ip through $ hostname -I
 port = int(input("Enter port:  use 8888 for demo"))
 numconn = 10  
 
