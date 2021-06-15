@@ -4,13 +4,12 @@ import time
 from _thread import *  # low level threading library
 import RPi.GPIO as GPIO
 
-pin = int(input('Enter LED pin number: ')) # led pins
+pin = [40, 38]  # int(input('Enter LED pin number: ')) # led pins #LED_pin=[40, 38]
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 #setting pins
 GPIO.setup(pin, GPIO.OUT)
-
 
 # Creates thread for per connection from clients
 def clientthread(conn):
@@ -18,10 +17,9 @@ def clientthread(conn):
     global lock_1
     global tf
     
-    
     buffer_size = 4096
     # sending message to connected client
-    conn.send('...welcome to the control server...type something and hit enter \n'.encode())  # send only takes bytes
+    conn.send('...welcome to Niyi control server...type something 1 for LED, after, on, stop, off: '.encode())  # send only takes bytes
     while True:
         try:
             # receiving from client
@@ -67,7 +65,7 @@ def clientthread(conn):
                             reply = "Frequency set to " + str(f) + " Hz"
                             
                         else:
-                            reply = "Enter on/off/frequency"
+                            reply = "Enter on/off/frequency: "
 
                         conn.sendall(reply.encode())
                         
@@ -90,9 +88,11 @@ def led_program():
     global tf
     global turn_led
     while True:
-        if turn_led: 
+        
+        if turn_led == True: 
             GPIO.output(pin[0], GPIO.HIGH)
             time.sleep(tf)
+            print('led sould be on')
             GPIO.output(pin[0], GPIO.LOW)
             time.sleep(tf)
             GPIO.output(pin[1], GPIO.HIGH)
@@ -102,12 +102,12 @@ def led_program():
 
 turn_led = False
 turn_seg = False
-freq = False
+freq = False  # was comment out before
 tf = 0.5
 lock_1 = False
 
 
-host = '127.0.0.1'  
+host = '192.168.1.241' #'169.254.92.143' #'127.0.0.1' # 192.168.1.241 
 port = int(input("Enter port No. : "))
 numconn = 10    
 
@@ -135,5 +135,6 @@ while True:
     # display client information
     print('...connected with ' + addr[0] + ':' + str(addr[1]))
 
-    start_new_thread(clientthread, (conn,)) # Starts new thread to handle all connections
+    # start_new_thread(clientthread, (conn,)) # Starts new thread to handle all connections
+    start_new_thread(clientthread, (conn,))
 s.close()

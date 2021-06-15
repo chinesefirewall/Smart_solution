@@ -29,8 +29,8 @@ def clientthread(conn):
 
 
 
-host = '172.17.55.244' #'192.168.1.241'  # should be raspberry ip through $ hostname -I
-port = int(input("Enter port:  use 8888 for demo"))
+host = '172.17.55.244'  #'192.168.1.241' #'172.17.55.244' #'192.168.1.241'  # should be raspberry ip through $ hostname -I
+port = int(input("Enter port:  use 8888 for demo: "))
 numconn = 10  
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
