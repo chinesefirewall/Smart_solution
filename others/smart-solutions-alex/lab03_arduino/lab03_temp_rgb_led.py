@@ -78,13 +78,14 @@ blue = 0
 
 
 try:
-    ser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) 
+    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1) 
     ser.flush()
     while True:        
 
         if ser.in_waiting > 0:
             tempc = round(float(ser.readline().decode('utf-8').rstrip()), 2)
             tempc = limit_to_range(tempc, temp_range)
+            print('temperature in celcius---->', tempc)
             
             temps.append(tempc)
             

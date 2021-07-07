@@ -10,7 +10,7 @@ import serial
 
 
 try:
-    ser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) 
+    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1) 
     ser.flush()
     while True:        
 
@@ -23,5 +23,3 @@ except KeyboardInterrupt:
     ser.close()
     print("done")
     
-
-

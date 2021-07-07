@@ -10,7 +10,7 @@ import serial
 led_command = ("ON", "OFF")
 
 try:
-    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1) 
+    ser = serial.Serial('/dev/ttyUSB1', 9600, timeout=1) 
     ser.flush()
     print('Serial connection successful')
     while True:        

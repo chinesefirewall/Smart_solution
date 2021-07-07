@@ -1,10 +1,10 @@
 
-String led_state;
+String led_state; 
 bool is_led_on = false;
-
+int pin = 18;
 void setup() {
   Serial.begin(9600);
-  pinMode(12, OUTPUT);
+  pinMode(pin, OUTPUT);
   //Serial.println("START HUJNU ");
 }
 
@@ -15,7 +15,7 @@ void loop() {
     
     if (led_state == "ON") {
       if (is_led_on == false) {
-        digitalWrite(12, HIGH);
+        digitalWrite(pin, HIGH);
         Serial.print("LED is on");
         is_led_on = true;
       }
@@ -24,7 +24,7 @@ void loop() {
       }
     } else if (led_state == "OFF") {
       if (is_led_on == true) {
-        digitalWrite(12, LOW);
+        digitalWrite(pin, LOW);
         Serial.print("LED is off");
         is_led_on = false;
       }

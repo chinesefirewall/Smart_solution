@@ -26,7 +26,7 @@ void setup() {
   // welcome message
   delay(2000);
   u8x8.setFont(u8x8_font_chroma48medium8_r);
-  u8x8.print("Hello bro");
+  u8x8.print("Welcome bro");
   delay(2000);
   u8x8.clear();
   

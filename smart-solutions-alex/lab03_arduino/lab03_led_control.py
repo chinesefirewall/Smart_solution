@@ -7,15 +7,15 @@ import serial
 # /dev/ttyS0
 # /dev/ttyAMA0
 
-cmds = ("ON", "OFF")
+led_command = ("ON", "OFF")
 
 try:
-    ser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) 
+    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1) 
     ser.flush()
     while True:        
         
         message = input(">> ")
-        if message.upper() not in cmds:
+        if message.upper() not in led_command:
             continue
         
         ser.write(message.encode("utf-8"))

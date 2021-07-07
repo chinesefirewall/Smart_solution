@@ -6,7 +6,7 @@ import time
 values = []
 
 if __name__ == '__main__':
-    ser = serial.Serial('/dev/serial0', 9600, timeout=1)
+    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1)
     print("hi")
     ser.flush()
     numberofreads = 0
