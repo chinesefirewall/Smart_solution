@@ -1,5 +1,3 @@
-
-''' Adapted by Niyi solomon adebayo'''
 import time
 import serial
 import sys
@@ -10,8 +8,8 @@ from rpi_ws281x import *
 
 # LED strip configuration:
 LED_COUNT      = 1     # Number of LED pixels.
-LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!).
-#LED_PIN        = 12      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
+#LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!).
+LED_PIN        = 12      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
 LED_DMA        = 10      # DMA channel to use for generating signal (try 10)
 LED_BRIGHTNESS = 255     # Set to 0 for darkest and 255 for brightest
@@ -21,7 +19,6 @@ LED_CHANNEL    = 0       # set to '1' for GPIOs 13, 19, 41, 45 or 53
 
 # Create NeoPixel object with appropriate configuration.
 strip = Adafruit_NeoPixel(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
-
 # Intialize the library (must be called once before other functions).
 strip.begin()
 
@@ -29,7 +26,7 @@ strip.begin()
 
 # Function lights a specific color: <Color(r, g, b)> passed to it 
 
-def led_color_on(strip, color, wait_ms=50, iterations=1):
+def led_color_on(strip, color, wait_ms=20, iterations=1):
     for i in range(strip.numPixels()):
         strip.setPixelColor(i, color)
         strip.show()
@@ -64,7 +61,7 @@ filename = "temps.txt"
 temps = list()
 
 # Ranges
-temp_range = (18, 35)
+temp_range = (20, 35)
 color_range = (0, 255)
 
 red = 0
@@ -81,14 +78,13 @@ blue = 0
 
 
 try:
-    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1) 
+    ser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) 
     ser.flush()
     while True:        
 
         if ser.in_waiting > 0:
             tempc = round(float(ser.readline().decode('utf-8').rstrip()), 2)
             tempc = limit_to_range(tempc, temp_range)
-            print('[INFO]   temperature in celcius---->', tempc)
             
             temps.append(tempc)
             
@@ -102,24 +98,21 @@ try:
 
 
 except KeyboardInterrupt:
-    print("[INFO]   Programm stopped")
+    print("Programm stopped")
     # close serial
     ser.close()
     led_color_on(strip, Color(0,0,0), 10)
     
     
-    print(f"[INFO]   Writing temps to file: {filename}")
-    
-    
+    print(f"Writing temps to file: {filename}")
     # Write temps to file
     with open(filename, 'w') as file:
         for t in temps:
             file.write('{}\n'.format(str(t)))    
-    print("[INFO]   DONE")
+    print("DONE")
     
     print("Plotting temperature graph...")
     import matplotlib.pyplot as plt
-    #matplotlib.use('Agg')
     plt.figure()
     plt.plot(temps)
     plt.show()

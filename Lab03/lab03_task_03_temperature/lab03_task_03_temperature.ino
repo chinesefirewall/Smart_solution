@@ -1,4 +1,4 @@
-// sample cvode from : https://iotboys.com/how-to-use-ds18b20-temperature-sensor/
+// sample code from : https://iotboys.com/how-to-use-ds18b20-temperature-sensor/
 
 /*
 

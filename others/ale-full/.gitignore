@@ -1,0 +1,14 @@
+# vs code setting folder
+/.vscode
+
+
+# testing file(s)
+test.py
+
+
+# help folder
+help/
+
+#images
+*.png
+*.jpg

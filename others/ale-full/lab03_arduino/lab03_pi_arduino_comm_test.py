@@ -1,6 +1,5 @@
 import time
 import serial
-import sys
 
 
 # Other ports
@@ -13,18 +12,14 @@ import sys
 try:
     ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1) 
     ser.flush()
-    while True:
+    while True:        
+
         if ser.in_waiting > 0:
             reply = ser.readline().decode('utf-8').rstrip()
-            print("Voltage: ", reply)
+            print("REPLY: ", reply)
 
 
 except KeyboardInterrupt:
-    print("Programm stopped")
     ser.close()
-    print("Serial closed")
-
-
-except:
-    print(f"[ERROR] {sys.exc_info()[0]}")
-    raise
+    print("done")
+    

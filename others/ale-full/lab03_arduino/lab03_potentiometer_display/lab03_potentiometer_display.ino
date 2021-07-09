@@ -1,7 +1,4 @@
 
-// code sample source: https://www.arduino.cc/en/tutorial/potentiometer and https://tronixstuff.com/2019/08/29/ssd1306-arduino-tutorial/
-
-
 #include <Arduino.h>
 #include <U8x8lib.h>
 
@@ -26,11 +23,11 @@ void setup() {
   u8x8.begin();
   u8x8.setPowerSave(0);
   
-  // welcome screen
-  delay(1000);
+  // welcome message
+  delay(2000);
   u8x8.setFont(u8x8_font_chroma48medium8_r);
-  u8x8.print("Welcome to the potentiometer problem bro");
-  delay(1000);
+  u8x8.print("Welcome bro");
+  delay(2000);
   u8x8.clear();
   
 }
@@ -38,16 +35,16 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
     
-  // read from analog  and do the potentiometer thingy
+  // read from analog
   analog_pin = analogRead(A0);
   // angle to voltage
-  volt = floatMap(analog_pin, 0, 1023, 0, 5); //map 0:1023 to btw 0 and 5
+  volt = floatMap(analog_pin, 0, 1023, 0, 5);
   volt_s = String(volt, 2);
   Serial.print(volt);
   //Serial.print(" --> ");
-    Serial.println(volt_s);
+  //Serial.println(volt_s);
   
-  //Displaying the voltage
+  //Display
   u8x8.print(volt_s);
   delay(1000);
   u8x8.clear();
