@@ -1,7 +1,7 @@
 
 // code sample source: https://www.arduino.cc/en/tutorial/potentiometer and https://tronixstuff.com/2019/08/29/ssd1306-arduino-tutorial/
 
-
+#include <SoftwareSerial.h>
 #include <Arduino.h>
 #include <U8x8lib.h>
 
@@ -11,6 +11,7 @@
 
 U8X8_SSD1306_128X64_NONAME_SW_I2C u8x8(/* clock=*/ SCL, /* data=*/ SDA, /* reset=*/ U8X8_PIN_NONE);
 
+SoftwareSerial mySerial(0,1);//(3,4); OR (0,1); //rx, tx
 int analog_pin;
 float volt;
 String volt_s;
@@ -22,7 +23,7 @@ float floatMap(float x, float in_min, float in_max, float out_min, float out_max
 
 void setup() {
   // put your setup code here, to run once:
-  Serial.begin(9600);
+  mySerial.begin(9600);
   u8x8.begin();
   u8x8.setPowerSave(0);
   
@@ -43,9 +44,9 @@ void loop() {
   // angle to voltage
   volt = floatMap(analog_pin, 0, 1023, 0, 5); //map 0:1023 to btw 0 and 5
   volt_s = String(volt, 2);
-  Serial.print(volt);
-  //Serial.print(" --> ");
-    Serial.println(volt_s);
+  mySerial.print(volt);
+  //mySerial.print(" --> ");
+    mySerial.println(volt_s);
   
   //Displaying the voltage
   u8x8.print(volt_s);

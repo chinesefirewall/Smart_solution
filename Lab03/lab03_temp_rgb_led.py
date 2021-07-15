@@ -1,5 +1,7 @@
 
-''' Adapted by Niyi solomon adebayo'''
+''' Adapted by Niyi solomon adebayo
+Run this script with root priviledge
+'''
 import time
 import serial
 import sys
@@ -91,11 +93,12 @@ try:
             print('[INFO]   temperature in celcius---->', tempc)
             
             temps.append(tempc)
-            
+            #print("[INFO  temperature appended]")
             # Temps range here is 20..35 cause it vey hot in Delta (orig 18..35)
             red = map_to_range(tempc, temp_range, color_range)
             blue = map_to_range(tempc, temp_range, color_range[::-1])
             led_color_on(strip, Color(red, green, blue))
+#             print("[INFO  led color on initialised]")
             print(f"Red: {red}, blue: {blue}, temp: {tempc}")
             
             
