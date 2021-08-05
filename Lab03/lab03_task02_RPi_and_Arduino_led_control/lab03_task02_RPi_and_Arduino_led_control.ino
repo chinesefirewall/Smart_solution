@@ -1,39 +1,47 @@
+// Include the libraries we need
+#include <SoftwareSerial.h>
 
 String led_state; 
 bool is_led_on = false;
-int pin = 18;
+int pin = 11;
+
+
+SoftwareSerial mySerial(0,1);//(3,4); OR (0,1); //rx, tx
+
 void setup() {
-  Serial.begin(9600);
+  mySerial.begin(9600);
   pinMode(pin, OUTPUT);
-  //Serial.println("START HUJNU ");
+  //mySerial.println("START HUJNU ");
 }
 
 void loop() {
-  if (Serial.available() > 0){
-    led_state = Serial.readString();
-    //Serial.println();
+  //mySerial.listen();
+  
+  if (mySerial.available() > 0){
+    led_state = mySerial.readStringUntil('\n'); //mySerial.read(); or received_msg = mySerial.readStringUntil('\n');
+    mySerial.println();
     
-    if (led_state == "ON") {
+    if (led_state == "ON" ) {
       if (is_led_on == false) {
         digitalWrite(pin, HIGH);
-        Serial.print("LED is on");
+        mySerial.print("LED is on");
         is_led_on = true;
       }
       else {
-        Serial.print("LED already on");
+        mySerial.print("LED already on");
       }
     } else if (led_state == "OFF") {
       if (is_led_on == true) {
         digitalWrite(pin, LOW);
-        Serial.print("LED is off");
+        mySerial.print("LED is off");
         is_led_on = false;
       }
       else {
-        Serial.print("LED already off");
+        mySerial.print("LED already off");
       }
     } 
     
    
   }
-  delay(1000);
+  delay(100);
 }

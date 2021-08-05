@@ -15,11 +15,12 @@ try:
     print('Serial connection successful')
     while True:        
         
-        message = input(" please enter ON or OFF>> ")
-        if message.upper() not in led_command:
+        message = input(" please enter 1 for  ON, or 0 for  OFF,>> ")
+        if message not in led_command: #message.upper()
             continue
         
-        ser.write(message.encode("utf-8"))
+##        ser.write(message.encode("utf-8"))
+        ser.write(message.encode())
         
         if ser.in_waiting > 0:
             reply = ser.readline().decode('utf-8').rstrip()

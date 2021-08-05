@@ -1,7 +1,10 @@
-// sample cvode from : https://iotboys.com/how-to-use-ds18b20-temperature-sensor/
 
 
 
+// sample code from : https://iotboys.com/how-to-use-ds18b20-temperature-sensor/
+
+
+#include <SoftwareSerial.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
@@ -13,10 +16,13 @@ DallasTemperature sensors(&oneWire);
 
  float Celcius=0;
  float Fahrenheit=0;
+
+SoftwareSerial mySerial(0,1);//(3,4); OR (0,1); //rx, tx
+ 
 void setup(void)
 {
   
-  Serial.begin(9600);
+  mySerial.begin(9600);
   sensors.begin();
 }
 
@@ -25,10 +31,10 @@ void loop(void)
   sensors.requestTemperatures(); 
   Celcius=sensors.getTempCByIndex(0);
   Fahrenheit=sensors.toFahrenheit(Celcius);
-  Serial.print(" C  ");
-  Serial.print(Celcius);
-  Serial.print(" F  ");
-  Serial.println(Fahrenheit);
+  //mySerial.print(" C  ");
+  mySerial.println(Celcius);
+  //mySerial.print(" F  ");
+  //mySerial.println(Fahrenheit);
   delay(1000);
 }
 
@@ -52,7 +58,7 @@ float temp_c;
 void setup(void)
 {
   sensors.begin();  // Start up the library
-  Serial.begin(9600);
+  mySerial.begin(9600);
 }
 
 void loop(void)
@@ -61,7 +67,7 @@ void loop(void)
   sensors.requestTemperatures(); 
   temp_c = sensors.getTempCByIndex(0);
   //print the temperature in Celsius
-  Serial.println(temp_c);
+  mySerial.println(temp_c);
   
   
   

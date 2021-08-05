@@ -16,7 +16,7 @@ DallasTemperature sensors(&oneWire);
 void setup(void)
 {
   
-  Serial.begin(9600);
+  mySerial.begin(9600);
   sensors.begin();
 }
 
@@ -25,10 +25,10 @@ void loop(void)
   sensors.requestTemperatures(); 
   Celcius=sensors.getTempCByIndex(0);
   Fahrenheit=sensors.toFahrenheit(Celcius);
-  Serial.print(" C  ");
-  Serial.print(Celcius);
-  //Serial.print(" F  ");
-  //Serial.println(Fahrenheit);
+  mySerial.print(" C  ");
+  mySerial.print(Celcius);
+  //mySerial.print(" F  ");
+  //mySerial.println(Fahrenheit);
   delay(1000);
 }
 */
@@ -37,6 +37,7 @@ void loop(void)
 
 #include <OneWire.h>
 #include <DallasTemperature.h>
+#include <SoftwareSerial.h>
 
 // Data wire is plugged into digital pin 2 on the Arduino
 #define ONE_WIRE_BUS 5
@@ -49,11 +50,13 @@ DallasTemperature sensors(&oneWire);
 
 float temp_c;
 
+SoftwareSerial mySerial(0,1);//(3,4); OR (0,1); //rx, tx
+
 void setup(void)
 {
   sensors.begin();  // Start up the library
-  Serial.begin(9600);
-  //Serial.print('Celcius');
+  mySerial.begin(9600);
+  //mySerial.print('Celcius');
 }
 
 void loop(void)
@@ -62,7 +65,7 @@ void loop(void)
   sensors.requestTemperatures(); 
   temp_c = sensors.getTempCByIndex(0);
   //print the temperature in Celsius
-  Serial.println(temp_c);
+  mySerial.println(temp_c);
   
   
   
