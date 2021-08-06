@@ -3,10 +3,13 @@
 import serial
 import time
 import sys
-
+# Other ports
+# /dev/ttyUSB0
+# /dev/ttyS0
+# /dev/ttyAMA0
 try:
     #open port /dev/ttyUSB0 at 9600 bps
-    ser=serial.Serial('/dev/ttyS0', 9600, timeout=1)
+    ser=serial.Serial('/dev/serial0', 9600, timeout=1)
     ser.flush()
     
     #Let's print port name

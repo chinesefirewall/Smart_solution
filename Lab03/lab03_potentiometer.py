@@ -7,11 +7,12 @@ import sys
 # /dev/ttyUSB0
 # /dev/ttyS0
 # /dev/ttyAMA0 - classroom / home
+# /dev/serial0
 
 
 
 try:
-    ser = serial.Serial('/dev/ttyUSB0', 9600, timeout=1) 
+    ser = serial.Serial('/dev/serial0', 9600, timeout=1) 
     ser.flush()
     while True:
         if ser.in_waiting > 0:

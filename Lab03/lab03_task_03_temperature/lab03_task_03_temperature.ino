@@ -39,8 +39,8 @@ void loop(void)
 #include <DallasTemperature.h>
 #include <SoftwareSerial.h>
 
-// Data wire is plugged into digital pin 2 on the Arduino
-#define ONE_WIRE_BUS 5
+// Data wire is plugged into digital pin 6 on the Arduino
+#define ONE_WIRE_BUS 6
 
 // Setup a oneWire instance to communicate with any OneWire device
 OneWire oneWire(ONE_WIRE_BUS);  
@@ -50,7 +50,7 @@ DallasTemperature sensors(&oneWire);
 
 float temp_c;
 
-SoftwareSerial mySerial(0,1);//(3,4); OR (0,1); //rx, tx
+SoftwareSerial mySerial(2,3);//(3,4); OR (0,1); //rx, tx
 
 void setup(void)
 {
@@ -66,6 +66,7 @@ void loop(void)
   temp_c = sensors.getTempCByIndex(0);
   //print the temperature in Celsius
   mySerial.println(temp_c);
+  //mySerial.print('Celcius');
   
   
   

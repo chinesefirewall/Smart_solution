@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
-#define ONE_WIRE_BUS 7
+#define ONE_WIRE_BUS 6 //7
 
 
 OneWire oneWire(ONE_WIRE_BUS);
@@ -9,7 +9,7 @@ OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 
 String received_msg;
-SoftwareSerial mySerial(3,4); //rx, tx
+SoftwareSerial mySerial(2,3); //rx, tx
 
 
 int temperature;

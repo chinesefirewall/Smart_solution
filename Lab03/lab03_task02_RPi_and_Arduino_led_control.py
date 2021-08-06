@@ -6,16 +6,17 @@ import serial
 # /dev/ttyUSB0
 # /dev/ttyS0
 # /dev/ttyAMA0
+# /dev/serial0
 
 led_command = ("ON", "OFF")
 
 try:
-    ser = serial.Serial('/dev/ttyUSB1', 9600, timeout=1) 
+    ser = serial.Serial('/dev/serial0', 9600, timeout=1) 
     ser.flush()
     print('Serial connection successful')
     while True:        
         
-        message = input(" please enter 1 for  ON, or 0 for  OFF,>> ")
+        message = input(" please enter ON or  OFF,>> ")
         if message not in led_command: #message.upper()
             continue
         

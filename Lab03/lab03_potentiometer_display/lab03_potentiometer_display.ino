@@ -11,7 +11,7 @@
 
 U8X8_SSD1306_128X64_NONAME_SW_I2C u8x8(/* clock=*/ SCL, /* data=*/ SDA, /* reset=*/ U8X8_PIN_NONE);
 
-SoftwareSerial mySerial(0,1);//(3,4); OR (0,1); //rx, tx
+SoftwareSerial mySerial(2,3);//(3,4); OR (0,1); //rx, tx
 int analog_pin;
 float volt;
 String volt_s;

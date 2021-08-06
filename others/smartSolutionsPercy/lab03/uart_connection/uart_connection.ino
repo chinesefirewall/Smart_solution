@@ -1,4 +1,26 @@
-// Include the libraries we need
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ // Include the libraries we need
 #include <SoftwareSerial.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
@@ -15,11 +37,11 @@ DallasTemperature sensors(&oneWire);
 // arrays to hold device address
 DeviceAddress insideThermometer;
 
-int ledPin = 2;
+int ledPin = 11; //2;
 String received_msg;
 int led_Status = 0; 
 
-SoftwareSerial mySerial(3,4); //rx, tx
+SoftwareSerial mySerial(2,3); //(1,0);//(3,4); //rx, tx
 
 void setup(void)
 {
@@ -31,14 +53,14 @@ void setup(void)
   pinMode(ledPin, OUTPUT);
 
   // locate devices on the bus
-  //mySerial.println("Locating devices...");
+  mySerial.println("Locating devices...");
   sensors.begin();
-  //mySerial.println("Found ");
+  mySerial.println("Found ");
   mySerial.println(sensors.getDeviceCount(), DEC);
-  //mySerial.println(" devices.");
+  mySerial.println(" devices.");
 
   // report parasite power requirements
- // mySerial.println("Parasite power is: "); 
+  mySerial.println("Parasite power is: "); 
   if (sensors.isParasitePowerMode()) mySerial.println("ON");
   else mySerial.println("OFF");
   
@@ -46,16 +68,16 @@ void setup(void)
   
 
   // show the addresses we found on the bus
-  //mySerial.print("Device 0 Address: ");
+  mySerial.print("Device 0 Address: ");
   printAddress(insideThermometer);
-  //mySerial.println();
+  mySerial.println();
 
   // set the resolution to 9 bit (Each Dallas/Maxim device is capable of several different resolutions)
   sensors.setResolution(insideThermometer, 11);
  
-  //mySerial.print("Device 0 Resolution: ");
-  //mySerial.print(sensors.getResolution(insideThermometer), DEC); 
-  //mySerial.println();
+  mySerial.print("Device 0 Resolution: ");
+  mySerial.print(sensors.getResolution(insideThermometer), DEC); 
+  mySerial.println();
 }
 
 // function to print the temperature for a device
@@ -88,7 +110,7 @@ void loop(void)
             // Send the command to get temperatures
             sensors.requestTemperatures(); 
             
-            //delay(1000);
+            delay(1000);
             
             // Use a simple function to print out the data
             printTemperature(insideThermometer); 
