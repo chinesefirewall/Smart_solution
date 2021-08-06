@@ -56,6 +56,7 @@ void setup(void)
 {
   sensors.begin();  // Start up the library
   mySerial.begin(9600);
+  Serial.begin(9600);
   //mySerial.print('Celcius');
 }
 
@@ -66,6 +67,7 @@ void loop(void)
   temp_c = sensors.getTempCByIndex(0);
   //print the temperature in Celsius
   mySerial.println(temp_c);
+  Serial.println(temp_c);
   //mySerial.print('Celcius');
   
   

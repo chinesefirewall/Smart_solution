@@ -22,10 +22,12 @@ int led_Status = 0;
 
 SoftwareSerial mySerial(2,3); // (1,0);//(3,4); //rx, tx
 
+
 void setup(void)
 {
   // start serial port
   mySerial.begin(9600);
+  Serial.begin(9600);
   mySerial.println("Dallas Temperature");
 
   //mySerial.begin(9600);
@@ -81,7 +83,8 @@ void loop(void)
 { 
  
       if (mySerial.available()>0){
-        received_msg = mySerial.readStringUntil('\n');
+        {received_msg = mySerial.readString();
+        Serial.println(received_msg);}
   
         if (received_msg == "sensor") {
             // request to all devices on the bus
