@@ -1,9 +1,9 @@
 #https://projectiot123.com/2019/01/27/home-automation-using-raspberry-pi-via-bluetooth/
 
 import serial
-from RPLCD import i2c
+
 import time
-import bluetooth
+
 import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BOARD)
