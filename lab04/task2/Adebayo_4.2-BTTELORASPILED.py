@@ -1,57 +1,46 @@
-import serial,time,sys
+import serial
+import time
+
 import RPi.GPIO as GPIO
-comm = False
-led_sw = False
 
-
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
+mode = GPIO.getmode()
 GPIO.setwarnings(False)
-GPIO.setup(40,GPIO.OUT)
 
+GPIO.setup(40, GPIO.OUT)
+
+ser = serial.Serial("/dev/serial0", baudrate=9600, timeout=1)
+
+time.sleep(0.2)
+led = False
+
+counter = 0
 try:
-# open port /dev/ttyUSB0 at 9600 bps
-    ser = serial.Serial("/dev/serial0", baudrate=9600, timeout=2)
-##    ser=serial.Serial("/dev/serial0",9600)
-
-    print(ser.name)
-    while True:
-        if comm == False:
-            print('while loop check successful')
-            fl = "Enter on/off\n  "
-            
-            ser.write(fl.encode("utf-8"))
-            print('message sent successful')
-           
-            comm = True
-            
-        if ser.in_waiting > 0:
-            print('serial waiting for comm')
-            read_serial = ser.read(ser.in_waiting).decode().rstrip()
-            time.sleep(0.1)
-            if read_serial == "on":
-                GPIO.output(40,GPIO.HIGH)
-                led_sw = True
-            if read_serial == "check":
-                if led_sw == True:
-                    ser.write("Ledon\n".encode())
-                else:
-                    ser.write("Ledoff\n".encode())
-                
-            
-            if read_serial == "off":
-                if led_sw == True:
-                    GPIO.output(40,GPIO.LOW)
-                    led_sw = False
-                
+    if ser.isOpen():
+        print("serial is open")
+        while True:
+            if ser.inWaiting()>0:
+                print('waiting for data')
+                serial_data = ser.readline()
+                serial_data = (serial_data.decode()).rstrip()
+                if serial_data == "on":
+                    GPIO.output(40, GPIO.HIGH)
+                    led = True
+                if serial_data == "off":
+                    GPIO.output(40, GPIO.LOW)
+                    led = False
                     
-            print("Phone:",read_serial)
-            comm = False
-        time.sleep(0.1)
-        
-
-            
+                if led == True:
+                    my_led = "led ON"
+                if led == False:
+                    my_led = "led OFF"
+                    
+                if serial_data == "info":
+                    print(my_led)
+                    ser.write(my_led.encode())
+                    
+                
+                print(serial_data)
+                time.sleep(0.2)
 except KeyboardInterrupt:
-    ser.close()
-    print("exit command received...")
-    sys.exit()
-#Use sofware serial for digital communications
+    GPIO.output(40, GPIO.LOW)

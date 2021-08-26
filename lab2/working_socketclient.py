@@ -9,7 +9,7 @@ import socket  # for sockets
 import sys  # for exit
 
 # initialise constants
-remote_ip = input('ip address: ')
+remote_ip = "192.168.46.74"
 port = int(input('Port number: '))
 buffer_size = 4096
 

@@ -3,10 +3,11 @@ import serial
 import time
 
 ## /dev/rfcomm0        
-## /dev/ttyAMA0 
+## /dev/ttyAMA0
+#/dev/rfcomm0
 
 if __name__ == '__main__':
-    ser = serial.Serial('/dev/ttyAMA0', 9600, timeout=1)
+    ser = serial.Serial('/dev/rfcomm0', 9600, timeout=1)
     print("Hello...welcome ")
     ser.flush()
 
